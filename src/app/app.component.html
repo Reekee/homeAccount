@@ -8,14 +8,6 @@
             </ion-header>
             <ion-content>
                 <ion-list>
-                    <!-- <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
-              <ion-label>
-                {{p.title}}
-              </ion-label>
-            </ion-item>
-          </ion-menu-toggle> -->
                     <ion-menu-toggle auto-hide="false">
                         <ion-item [routerDirection]="'root'" routerLink="/home">
                             <ion-icon slot="start" name="home"></ion-icon>
@@ -41,10 +33,10 @@
                         </ion-item>
                     </ion-menu-toggle>
                     <ion-menu-toggle auto-hide="false">
-                        <ion-item [routerDirection]="'root'" routerLink="/product">
+                        <ion-item [routerDirection]="'root'" (click)="logout()">
                             <ion-icon slot="start" name="home"></ion-icon>
                             <ion-label>
-                                สินค้า
+                                ออกจากระบบ
                             </ion-label>
                         </ion-item>
                     </ion-menu-toggle>

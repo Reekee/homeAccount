@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { AlertController, LoadingController } from '@ionic/angular';
 import { HttpClient } from '@angular/common/http';
 import { timeout } from 'rxjs/operators';
+import { Storage } from '@ionic/storage';
+import { Router } from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -11,6 +13,8 @@ export class SessionService {
         private alertController: AlertController,
         private loadingController: LoadingController,
         private http: HttpClient,
+        private storage: Storage,
+        private router: Router,
     ) { }
     public async showAlert(msg) {
         return new Promise(async resolve => {
@@ -20,6 +24,31 @@ export class SessionService {
                 buttons: [
                     {
                         text: 'ตกลง',
+                        handler: () => {
+                            resolve(true);
+                        }
+                    }
+                ]
+            });
+            await alert.present();
+        });
+    }
+    public showConfirm(msg) {   // method สำหรับการแสดงการยืนยันข้อมูล
+        return new Promise(async resolve => {
+            let alert = await this.alertController.create({
+                header: "คำยืนยัน ?",
+                message: msg,
+                backdropDismiss: false,
+                buttons: [
+                    {
+                        text: "ยกเลิก",
+                        role: 'cancel',
+                        handler: () => {
+                            resolve(false);
+                        }
+                    },
+                    {
+                        text: "ตกลง",
                         handler: () => {
                             resolve(true);
                         }
@@ -53,5 +82,17 @@ export class SessionService {
                     reject("ติดต่อเครื่องแม่ข่ายไม่ได้");
                 });
         });
+    }
+    public getStorage(key) {        // method สำหรับดึงข้อมูลจาก Storage
+        return this.storage.get(key);
+    }
+    public setStorage(key, val) {   // method สำหรับการ set ข้อมูล Storage
+        return this.storage.set(key, val);
+    }
+    public removeStorage(key) {     // method สำหรับลบข้อมูล Storage
+        return this.storage.remove(key);
+    }
+    public linkTo(url, isRemember = true) {
+        this.router.navigateByUrl(url, { replaceUrl: !isRemember });
     }
 }
