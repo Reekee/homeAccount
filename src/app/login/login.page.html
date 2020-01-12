@@ -1,0 +1,16 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>เข้าสู่ระบบ</ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-item>
+        <ion-label>Username</ion-label>
+        <ion-input [(ngModel)]="username"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Password</ion-label>
+        <ion-input type="password" [(ngModel)]="password"></ion-input>
+    </ion-item>
+    <ion-button (click)="login()">เข้าสู่ระบบ</ion-button>
+</ion-content>
